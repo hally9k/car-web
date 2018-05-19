@@ -5,7 +5,7 @@ import SignUp from './sign-up'
 import './index.scss'
 
 export class Root extends React.Component {
-	private render() {
+	public render() {
 		return (
 			<div className="app">
 				<SignUp />
