@@ -1,7 +1,8 @@
 import { commitMutation, graphql } from 'react-relay'
+import environment from 'environment'
 
-const signUp = graphql`
-	mutation signUpMutation($authProvider: SignUpData!) {
+const mutation = graphql`
+	mutation signUpMutation($authProvider: SignupData!) {
 		signUp(authProvider: $authProvider) {
 			firstName
 			lastName
@@ -12,20 +13,19 @@ const signUp = graphql`
 	}
 `
 
-const config = {
-	mutation: signUp,
-	variables,
-	onCompleted: () => console.log('completed'),
-	onError: () => console.log('error')
-}
-
-export default (variables, callback) => {
+export default (credentials, callback) => {
 	commitMutation(environment, {
 		mutation,
-		variables,
-		onCompleted: () => {
-			callback && callback()
+		variables: {
+			authProvider: {
+				credentials
+			}
 		},
-		onError: err => console.error(err)
+		onError: error => {
+			callback(null, error)
+		},
+		updater: (store, { signUp }) => {
+			callback(signUp, null)
+		}
 	})
 }

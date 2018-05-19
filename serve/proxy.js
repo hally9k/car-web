@@ -9,9 +9,9 @@ const router = new Router()
 
 const proxyOptions = {
 	pathRewrite: {
-		'/api': '/'
+		'/api': '/graphql'
 	},
-	target: 'http://localhost:9092',
+	target: 'http://localhost:9000',
 	changeOrigin: true
 }
 

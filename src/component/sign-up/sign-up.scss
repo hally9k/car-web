@@ -1,40 +1,23 @@
-@keyframes flashing {
-  0%   { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
-}
+.form {
+    display: flex;
+    flex-direction: column;
 
-.traffic-light {
-    padding: 2rem;
-    background-color: black;
-    border-radius: 3rem;
+    label {
+        display: flex;
+        flex-direction: column;
 
-    >div {
-        width: 3rem;
-        height: 3rem;
-        border-radius: 1.5rem;
-        opacity: .3;
+        font-size: .7rem;
+    }
 
-        &.lit {
-            opacity: 1;
-        }
+    button {
+        margin-top: 1rem;
+    }
 
-        &:nth-child(1) {
-            background-color: red;
-            margin-bottom: .5rem;
-        }
+    .error {
+        color: red
+    }
 
-        &:nth-child(2) {
-            background-color: orange;
-            margin-bottom: .5rem;
-
-            &.flashing {
-                animation: flashing 1s infinite;
-            }
-        }
-
-        &:nth-child(3) {
-            background-color: green;
-        }
+    .success {
+        color: darkgreen
     }
 }
