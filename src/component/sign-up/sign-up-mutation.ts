@@ -1,4 +1,5 @@
 import environment from 'environment'
+import { SignUpForm } from './index'
 import { commitMutation, graphql } from 'react-relay'
 
 const mutation = graphql`
@@ -13,13 +14,13 @@ const mutation = graphql`
 	}
 `
 
-export default (credentials, callback) => {
+export default (credentials: SignUpForm, callback: any) => {
 	commitMutation(environment, {
 		mutation,
-		onError: error => {
+		onError: (error: any) => {
 			callback(null, error)
 		},
-		updater: (store, { signUp }) => {
+		updater: (store: any, { signUp }: any) => {
 			callback(signUp, null)
 		},
 		variables: {

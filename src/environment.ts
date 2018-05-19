@@ -16,7 +16,7 @@ const network = Network.create((operation: any, variables: any) =>
 	}).then(response => response.json())
 )
 
-const handlerProvider = null
+const handlerProvider: any = null
 
 const environment = new Environment({
 	handlerProvider,

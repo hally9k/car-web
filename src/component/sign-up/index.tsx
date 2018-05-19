@@ -3,50 +3,32 @@ import environment from 'environment'
 import signUpMutation from './sign-up-mutation'
 import './sign-up.scss'
 
-type State = {
+interface IState {
 	error: string
 	success: string
-	form: SignUpForm
+	form: ISignUpForm
 }
 
-type SignUpForm = {
+export interface ISignUpForm {
 	firstName: string | null
 	lastName: string | null
 	email: string | null
 	password: string | null
 }
 
-export default class SignUp extends React.Component<void, State> {
-	state = {
+export default class SignUp extends React.Component {
+	public state: IState = {
 		error: null,
-		success: null,
 		form: {
+			email: null,
 			firstName: null,
 			lastName: null,
-			email: null,
 			password: null
-		}
+		},
+		success: null
 	}
 
-	handleSubmit = event => {
-		event.preventDefault()
-
-		signUpMutation(this.state.form, this.handleResponse)
-	}
-
-	handleChange = ({ target: { value, name } }) => {
-		this.setState(() => ({ form: { ...this.state.form, [name]: value } }))
-	}
-
-	handleResponse = (data, error) => {
-		if (error) {
-			this.setState({ error: 'An error has occurred.', success: null })
-		} else {
-			this.setState({ error: null, success: `Thanks for signing up ${data.firstName}.` })
-		}
-	}
-
-	render() {
+	public render() {
 		const { error, success } = this.state
 		return (
 			<React.Fragment>
@@ -73,5 +55,23 @@ export default class SignUp extends React.Component<void, State> {
 				</form>
 			</React.Fragment>
 		)
+	}
+
+	private handleSubmit = (event: React.SyntheticEvent<any>) => {
+		event.preventDefault()
+
+		signUpMutation(this.state.form, this.handleResponse)
+	}
+
+	private handleChange = ({ target: { value, name } }: any) => {
+		this.setState(() => ({ form: { ...this.state.form, [name]: value } }))
+	}
+
+	private handleResponse = (data: any, error: any) => {
+		if (error) {
+			this.setState({ error: 'An error has occurred.', success: null })
+		} else {
+			this.setState({ error: null, success: `Thanks for signing up ${data.firstName}.` })
+		}
 	}
 }

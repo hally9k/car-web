@@ -22,6 +22,11 @@ let config = {
 				loaders: ['babel-loader', 'ts-loader']
 			},
 			{
+				test: /\.(graphql|gql)$/,
+				include: path.resolve(__dirname, 'src'),
+				loader: 'graphql-tag/loader'
+			},
+			{
 				test: /\.(scss)$/,
 				include: path.resolve(__dirname, 'src'),
 				loaders: ['style-loader', 'css-loader', 'sass-loader']
@@ -35,7 +40,7 @@ let config = {
 		})
 	],
 	resolve: {
-		extensions: ['.js', '.tsx', '.ts'],
+		extensions: ['.js', '.tsx', '.ts', '.graphql'],
 		modules: ['node_modules', 'src']
 	},
 	optimization: {
