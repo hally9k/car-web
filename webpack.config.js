@@ -9,7 +9,7 @@ const isDev = mode === 'development'
 let config = {
 	mode: 'development',
 	devtool: isDev ? 'cheap-module-source-map' : false,
-	entry: ['react-hot-loader/patch', path.resolve(__dirname, 'src/index.js')],
+	entry: ['react-hot-loader/patch', path.resolve(__dirname, 'src/index.tsx')],
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'app.js'
@@ -17,27 +17,14 @@ let config = {
 	module: {
 		rules: [
 			{
-				test: /\.(js|jsx)$/,
+				test: /\.tsx?$/,
 				include: path.resolve(__dirname, 'src'),
-				loader: require.resolve('babel-loader'),
-				options: {
-					plugins: ['react-hot-loader/babel']
-				}
+				loaders: ['babel-loader', 'ts-loader']
 			},
 			{
 				test: /\.(scss)$/,
 				include: path.resolve(__dirname, 'src'),
-				use: [
-					{
-						loader: 'style-loader' // creates style nodes from JS strings
-					},
-					{
-						loader: 'css-loader' // translates CSS into CommonJS
-					},
-					{
-						loader: 'sass-loader' // compiles Sass to CSS
-					}
-				]
+				loaders: ['style-loader', 'css-loader', 'sass-loader']
 			}
 		]
 	},
@@ -48,7 +35,7 @@ let config = {
 		})
 	],
 	resolve: {
-		extensions: ['.js', '.jsx'],
+		extensions: ['.js', '.tsx', '.ts'],
 		modules: ['node_modules', 'src']
 	},
 	optimization: {
@@ -78,7 +65,7 @@ if (isDev) {
 			hot: {
 				hot: true,
 				host: '0.0.0.0',
-				port: 9091
+				port: 9876
 			}
 		}
 	}

@@ -1,6 +1,10 @@
-import { testStatechart } from 'react-automata'
-import { Root, statechart } from './index.jsx'
+import { Root } from './index.tsx'
+import { render } from 'react-testing-library'
 
-test('it works', () => {
-	testStatechart({ statechart }, Root)
+describe('', () => {
+	it('', () => {
+		const { component } = render(<Root />)
+
+		expect(component).toMatchSnapshot()
+	})
 })

@@ -1,14 +1,31 @@
 import * as React from 'react'
-import classnames from 'classnames'
 import environment from 'environment'
 import signUpMutation from './sign-up-mutation'
 import './sign-up.scss'
 
-export default class SignUp extends React.Component {
+type State = {
+	error: string
+	success: string
+	form: SignUpForm
+}
+
+type SignUpForm = {
+	firstName: string | null
+	lastName: string | null
+	email: string | null
+	password: string | null
+}
+
+export default class SignUp extends React.Component<void, State> {
 	state = {
 		error: null,
 		success: null,
-		form: {}
+		form: {
+			firstName: null,
+			lastName: null,
+			email: null,
+			password: null
+		}
 	}
 
 	handleSubmit = event => {

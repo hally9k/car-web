@@ -1,22 +1,20 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime'
 
-const store = new Store(new RecordSource())
+const store: any = new Store(new RecordSource())
 
-const network = Network.create((operation, variables) => {
-	return fetch('http://localhost:9090/api', {
-		method: 'POST',
+const network = Network.create((operation: any, variables: any) =>
+	fetch('http://localhost:9090/api', {
+		body: JSON.stringify({
+			query: operation.text,
+			variables
+		}),
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json'
 		},
-		body: JSON.stringify({
-			query: operation.text,
-			variables
-		})
-	}).then(response => {
-		return response.json()
-	})
-})
+		method: 'POST'
+	}).then(response => response.json())
+)
 
 const handlerProvider = null
 

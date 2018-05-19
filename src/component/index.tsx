@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { hot } from 'react-hot-loader'
 import SignUp from './sign-up'
 
@@ -14,4 +14,4 @@ export class Root extends React.Component {
 	}
 }
 
-export default hot(module)(Root)
+export default hot()(Root)
