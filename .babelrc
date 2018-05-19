@@ -1,0 +1,14 @@
+{
+    "env": {
+        "test": {
+            "plugins": ["transform-es2015-modules-commonjs"],
+            "sourceMap": "inline"
+        }
+    },
+    "plugins": [
+        ["relay", { "schema": "../server/schema.graphql" }],
+        "transform-class-properties",
+        "transform-object-rest-spread"
+    ],
+    "presets": ["react"]
+}

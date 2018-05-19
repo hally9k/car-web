@@ -1,0 +1,41 @@
+html, body {
+	padding: 0;
+	margin: 0;
+}
+
+.app {
+    font-family: sans-serif;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	color: black;
+}
+
+.cross-button {
+	position: relative;
+	margin: 1rem;
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: .75rem;
+
+	background-color: silver;
+
+	cursor: pointer;
+
+	&:after {
+		content: " ";
+      	position: absolute;
+		width: 2rem;
+		height: 2rem;
+		border-radius: 1rem;
+
+		top: -.25rem;
+		left: -.25rem;
+
+		background-color: gray;
+
+		z-index: -1;
+	}
+}

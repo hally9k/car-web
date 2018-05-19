@@ -1,0 +1,40 @@
+@keyframes flashing {
+  0%   { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.traffic-light {
+    padding: 2rem;
+    background-color: black;
+    border-radius: 3rem;
+
+    >div {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 1.5rem;
+        opacity: .3;
+
+        &.lit {
+            opacity: 1;
+        }
+
+        &:nth-child(1) {
+            background-color: red;
+            margin-bottom: .5rem;
+        }
+
+        &:nth-child(2) {
+            background-color: orange;
+            margin-bottom: .5rem;
+
+            &.flashing {
+                animation: flashing 1s infinite;
+            }
+        }
+
+        &:nth-child(3) {
+            background-color: green;
+        }
+    }
+}

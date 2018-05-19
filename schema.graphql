@@ -1,0 +1,247 @@
+type ApplicationDataType {
+  fuelTypes: [FuelType!]!
+  transmissionTypes: [TransmissionType!]!
+  bodyTypes: [BodyType!]!
+  conditionType: [ConditionType!]!
+  makes(before: String, after: String, first: Int, last: Int): MakeConnection!
+}
+
+input AuthProviderCredentials {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+}
+
+enum BodyType {
+  Van
+  UTE
+  SUV
+  StationWagon
+  Sedan
+  Hatchback
+  Coupe
+  Convertible
+}
+
+# This is the main entry point for the public facing graph
+type Business implements Node {
+  name: String!
+  subdomain: String
+  domain: String
+
+  # The ID of an object
+  id: ID!
+  listings(before: String, after: String, first: Int, last: Int): ListingConnection!
+}
+
+enum ConditionType {
+  Imported
+  ReConditioned
+  New
+}
+
+input CreateBusinessArgType {
+  name: String!
+  domain: String
+  subdomain: String
+}
+
+input CreateBusinessMutationInput {
+  business: CreateBusinessArgType!
+  clientMutationId: String
+}
+
+type CreateBusinessMutationPayload {
+  business: Business!
+  clientMutationId: String
+}
+
+input CreateListingArgs {
+  id: String
+  modelId: String!
+  title: String!
+  description: String!
+  year: Int
+  kilometers: Long
+  color: String
+  bodyType: BodyType
+  fuelType: FuelType
+  transmissionType: TransmissionType
+  cylinders: Int
+  engineSize: Int
+  conditionType: ConditionType
+  features: [String!]!
+}
+
+input CreateListingMutationInput {
+  listing: CreateListingArgs!
+  clientMutationId: String
+}
+
+type CreateListingMutationPayload {
+  listing: Listing!
+  clientMutationId: String
+}
+
+scalar DateTime
+
+enum FuelType {
+  Electric
+  Hybrid
+  Diesel
+  Petrol
+}
+
+type Listing implements Node {
+  makeId: String!
+  modelId: String!
+  businessId: String!
+  title: String!
+  slug: String!
+  description: String!
+  year: Int
+  kilometers: Long
+  color: String
+  bodyType: BodyType
+  fuelType: FuelType
+  transmissionType: TransmissionType
+  cylinders: Int
+  engineSize: Int
+  conditionType: ConditionType
+  features: [String!]!
+  createdBy: String!
+  createdAt: DateTime
+
+  # The ID of an object
+  id: ID!
+}
+
+# A connection to a list of items.
+type ListingConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ListingEdge]
+}
+
+# An edge in a connection.
+type ListingEdge {
+  # The item at the end of the edge.
+  node: Listing!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+# The `Long` scalar type represents non-fractional signed whole numeric values.
+# Long can represent values between -(2^63) and 2^63 - 1.
+scalar Long
+
+type Make implements Node {
+  name: String!
+  slug: String!
+
+  # The ID of an object
+  id: ID!
+  models(before: String, after: String, first: Int, last: Int): ModelConnection!
+}
+
+# A connection to a list of items.
+type MakeConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [MakeEdge]
+}
+
+# An edge in a connection.
+type MakeEdge {
+  # The item at the end of the edge.
+  node: Make!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+type Model implements Node {
+  name: String!
+  slug: String!
+  makeId: String!
+  make: Make
+
+  # The ID of an object
+  id: ID!
+}
+
+# A connection to a list of items.
+type ModelConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ModelEdge]
+}
+
+# An edge in a connection.
+type ModelEdge {
+  # The item at the end of the edge.
+  node: Model!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+type Mutation {
+  signUp(authProvider: SignupData!): User!
+  login(email: String!, password: String!): String!
+  createListing(input: CreateListingMutationInput!): CreateListingMutationPayload
+  createBusiness(input: CreateBusinessMutationInput!): CreateBusinessMutationPayload
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type Query {
+  application: ApplicationDataType!
+  business(businessId: String): Business!
+}
+
+input SignupData {
+  credentials: AuthProviderCredentials
+}
+
+enum TransmissionType {
+  Auto
+  Tiptronic
+  Manual
+}
+
+type User {
+  firstName: String!
+  lastName: String!
+  email: String!
+  businessId: String
+  createdAt: DateTime
+}
+

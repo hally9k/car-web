@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it works: green 1`] = `
+<div
+  className="app"
+>
+  <div
+    className="traffic-light"
+  >
+    <div
+      className=""
+    />
+    <div
+      className=""
+    />
+    <div
+      className="lit"
+    />
+  </div>
+  <div
+    className="cross-button"
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`it works: orange 1`] = `
+<div
+  className="app"
+>
+  <div
+    className="traffic-light"
+  >
+    <div
+      className=""
+    />
+    <div
+      className="lit flashing"
+    />
+    <div
+      className=""
+    />
+  </div>
+  <div
+    className="cross-button"
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`it works: red 1`] = `
+<div
+  className="app"
+>
+  <div
+    className="traffic-light"
+  >
+    <div
+      className="lit"
+    />
+    <div
+      className=""
+    />
+    <div
+      className=""
+    />
+  </div>
+  <div
+    className="cross-button"
+    onClick={[Function]}
+  />
+</div>
+`;
