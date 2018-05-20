@@ -14,18 +14,21 @@
   "scripts": {
     "start": "yarn relay & webpack-serve ./webpack.config.js",
     "test": "jest",
-    "build": "rm -rf ./dist/* && relay && NODE_ENV=production webpack",
-    "relay": "relay-compiler --src ./src --schema ./schema.graphql --extensions=js,jsx --no-watchman",
+    "build": "rm -rf ./dist/* && yarn relay && NODE_ENV=production webpack",
+    "relay": "relay-compiler --src ./src/**/* --schema ./schema.graphql --language typescript --extensions=js,jsx,ts,tsx --no-watchman",
     "lint": "tslint -c tslint.json './src/**/*.ts*",
     "precommit": "lint-staged",
     "prepush": "yarn test"
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "graphql": "^0.13.2",
     "react": "^16.3.2",
     "react-automata": "^2.0.0",
     "react-dom": "^16.3.2",
     "react-relay": "^1.6.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "relay": "^0.8.0-1",
     "rxjs": "^5.5.7"
   },
@@ -56,6 +59,7 @@
     "react-hot-loader": "^4.1.1",
     "react-testing-library": "^3.1.3",
     "relay-compiler": "^1.6.0",
+    "relay-compiler-language-typescript": "^0.9.0",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.20.3",
     "ts-jest": "^22.4.6",
