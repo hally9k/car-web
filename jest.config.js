@@ -12,6 +12,7 @@ module.exports = {
     roots: ['<rootDir>/src/'],
     testPathIgnorePatterns: ['/node_modules/'],
     "transform": {
+      "\\.(gql|graphql)$": "<rootDir>/test/mock/graphql.js",
       "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.tsx?$": "ts-jest"
     },

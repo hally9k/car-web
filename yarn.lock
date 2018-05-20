@@ -3604,10 +3604,6 @@ graphql-compiler@1.6.0:
     fb-watchman "^2.0.0"
     immutable "~3.7.6"
 
-graphql-tag@^2.9.2:
-  version "2.9.2"
-  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.9.2.tgz#2f60a5a981375f430bf1e6e95992427dc18af686"
-
 graphql@^0.9.1:
   version "0.9.6"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.9.6.tgz#514421e9d225c29dfc8fd305459abae58815ef2c"
