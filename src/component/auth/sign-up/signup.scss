@@ -1,0 +1,23 @@
+.form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        display: flex;
+        flex-direction: column;
+
+        font-size: .7rem;
+    }
+
+    button {
+        margin-top: 1rem;
+    }
+
+    .error {
+        color: red
+    }
+
+    .success {
+        color: darkgreen
+    }
+}
