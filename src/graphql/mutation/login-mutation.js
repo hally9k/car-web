@@ -7,13 +7,13 @@ const mutation = graphql`
 	}
 `
 
-export default (credentials: any, callback: any) => {
+export default (credentials, callback) => {
 	commitMutation(environment, {
 		mutation,
-		onError: (error: any) => {
+		onError: error => {
 			callback(null, error)
 		},
-		updater: (store: any, { login }: any) => {
+		updater: (store, { login }) => {
 			callback(login, null)
 		},
 		variables: {

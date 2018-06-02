@@ -1,6 +1,6 @@
 import * as React from 'react'
 import environment from 'environment'
-import signUpMutation from './signup-mutation'
+import signUpMutation from 'graphql/mutation/sign-up-mutation'
 import './signup.scss'
 
 interface IState {

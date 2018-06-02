@@ -40,7 +40,7 @@ let config = {
 		})
 	],
 	resolve: {
-		extensions: ['.js', '.tsx', '.ts', '.graphql'],
+		extensions: ['.js', '.jsx', '.tsx', '.ts', '.graphql'],
 		modules: ['node_modules', 'src']
 	},
 	optimization: {

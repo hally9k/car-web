@@ -1,6 +1,6 @@
 import * as React from 'react'
 import environment from 'environment'
-import loginMutation from './login-mutation'
+import loginMutation from 'graphql/mutation/login-mutation'
 import './login.scss'
 
 interface IState {

@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'found'
 
 export default () => (
 	<div className="navigation">
-		<NavLink to="/">Home</NavLink>
-		<NavLink to="/signup">Signup</NavLink>
-		<NavLink to="/login">Login</NavLink>
+		<Link to="/">Home</Link>
+		<Link to="/signup">Signup</Link>
+		<Link to="/login">Login</Link>
 	</div>
 )

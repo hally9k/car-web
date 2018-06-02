@@ -6,7 +6,7 @@
         }
     },
     "plugins": [
-        ["relay", { "schema": "../server/schema.graphql", "artifactDirectory": "./src/__generated__" }],
+        ["relay", { "schema": "./schema.graphql" }],
         "transform-class-properties",
         "transform-object-rest-spread",
         "react-hot-loader/babel"
