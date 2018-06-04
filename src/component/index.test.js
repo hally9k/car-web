@@ -1,16 +1,16 @@
 import * as React from 'react'
-import { Root } from './index.tsx'
 import { render } from 'react-testing-library'
+import { Root } from './index.jsx'
 
 jest.mock('react-relay', () => ({
-	graphql: jest.fn(),
-	commitMutation: jest.fn()
+    graphql: jest.fn(),
+    commitMutation: jest.fn()
 }))
 
 describe('', () => {
-	it('', () => {
-		const { component } = render(<Root />)
+    it('', () => {
+        const { component } = render(<Root />)
 
-		expect(component).toMatchSnapshot()
-	})
+        expect(component).toMatchSnapshot()
+    })
 })
