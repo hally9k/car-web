@@ -6,7 +6,7 @@
   "author": "hally9k",
   "license": "MIT",
   "lint-staged": {
-    "*.+(scss|tsx|ts|js)": [
+    "*.+(scss|jsx|js)": [
       "yarn lint",
       "git add"
     ]
