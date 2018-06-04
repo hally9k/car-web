@@ -16,11 +16,10 @@ const Router = createFarceRouter({
 	render: createRender({})
 })
 
-export class Root extends React.Component {
-	public render() {
+export class Root extends React.Component<*, *> {
+	render() {
 		return <Router resolver={new Resolver(environment)} />
 	}
 }
 
-// @ts-ignore
 export default hot(module)(Root)
