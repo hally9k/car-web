@@ -21,6 +21,8 @@
     "prepush": "yarn test"
   },
   "dependencies": {
+    "@material-ui/core": "^1.2.0",
+    "@material-ui/icons": "^1.1.0",
     "classnames": "^2.2.5",
     "farce": "^0.2.6",
     "flow-bin": "^0.73.0",
@@ -46,6 +48,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-react": "^6.24.1",
+    "connect-history-api-fallback": "^1.5.0",
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -73,7 +76,7 @@
     "relay-compiler": "^1.6.0",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.20.3",
-    "webpack": "^4.0.1",
-    "webpack-serve": "^0.1.5"
+    "webpack": "^4.12.0",
+    "webpack-serve": "^1.0.4"
   }
 }

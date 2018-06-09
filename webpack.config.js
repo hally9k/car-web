@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
-const proxy = require('./serve/proxy').default
+const addon = require('./serve/addon').default
 const MinifyPlugin = require('babel-minify-webpack-plugin')
 
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development'
@@ -64,7 +64,7 @@ if (isDev) {
     config = {
         ...config,
         serve: {
-            add: proxy,
+            add: addon,
             host: '0.0.0.0',
             port: 9090,
             hot: {
