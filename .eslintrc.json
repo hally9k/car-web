@@ -286,14 +286,6 @@
       "no-this-before-super": "error",
       "no-var": "error",
       "prefer-template": "error",
-      "sort-imports": [
-          "error",
-          {
-              "ignoreCase": true,
-              "ignoreMemberSort": false,
-              "memberSyntaxSortOrder": ["all", "single", "multiple", "none"]
-          }
-      ],
       "template-curly-spacing": ["error", "never"],
       "yield-star-spacing": ["error", "after"]
   }
