@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react'
-import { queryMiddleware, HashProtocol } from 'farce'
+import { queryMiddleware, BrowserProtocol } from 'farce'
 import { createRender, createFarceRouter } from 'found'
 import { Resolver } from 'found-relay/lib/modern'
 import { hot } from 'react-hot-loader'
@@ -11,7 +11,7 @@ import routes from 'routes'
 import './index.scss'
 
 const Router: * = createFarceRouter({
-    historyProtocol: new HashProtocol(),
+    historyProtocol: new BrowserProtocol(),
     historyMiddlewares: [queryMiddleware],
     routeConfig: routes,
 
