@@ -2,10 +2,10 @@
 import * as React from 'react'
 import loginMutation from 'graphql/mutation/login-mutation'
 import Grid from '@material-ui/core/Grid'
-import Input from '@material-ui/core/Input'
+import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
-import './login.scss'
+import '../auth.scss'
 
 type State = {
     error: string | null,
@@ -50,24 +50,26 @@ export default class Login extends React.Component<State, *> {
         return (
             <Grid container={true} justify="center" alignItems="center" className="container">
                 <form className="form" onSubmit={this.handleSubmit}>
-                    <Input
+                    <TextField
+                        required={true}
                         className="input"
                         placeholder="Email"
-                        fullWidth="true"
+                        fullWidth={true}
                         name="email"
                         onChange={this.handleChange}
                     />
-                    <Input
+                    <TextField
+                        required={true}
                         className="input"
                         placeholder="Password"
-                        fullWidth="true"
+                        fullWidth={true}
                         name="password"
                         type="password"
                         onChange={this.handleChange}
                     />
                     <div className="button-group">
                         <Button>Signup</Button>
-                        <Button variant="contained" color="primary">
+                        <Button type="submit" variant="contained" color="primary">
                             Login
                         </Button>
                     </div>

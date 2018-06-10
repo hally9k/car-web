@@ -1,7 +1,11 @@
 // @flow
 import * as React from 'react'
 import signUpMutation from 'graphql/mutation/sign-up-mutation'
-import './signup.scss'
+import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+
+import '../auth.scss'
 
 type State = {
     error: string | null,
@@ -50,29 +54,50 @@ export default class SignUp extends React.Component<*, State> {
         const { error, success }: State = this.state
 
         return (
-            <React.Fragment>
+            <Grid container={true} justify="center" alignItems="center" className="container">
                 <form className="form" onSubmit={this.handleSubmit}>
-                    <label>
-                        First Name
-                        <input name="firstName" onChange={this.handleChange} />
-                    </label>
-                    <label>
-                        Last Name
-                        <input name="lastName" onChange={this.handleChange} />
-                    </label>
-                    <label>
-                        Email
-                        <input name="email" onChange={this.handleChange} />
-                    </label>
-                    <label>
-                        Password
-                        <input name="password" onChange={this.handleChange} />
-                    </label>
-                    <button>Submit</button>
+                    <TextField
+                        className="input"
+                        required={true}
+                        placeholder="First Name"
+                        fullWidth={true}
+                        name="firstName"
+                        onChange={this.handleChange}
+                    />
+                    <TextField
+                        className="input"
+                        required={true}
+                        placeholder="Last Name"
+                        fullWidth={true}
+                        name="lastName"
+                        onChange={this.handleChange}
+                    />
+                    <TextField
+                        className="input"
+                        required={true}
+                        placeholder="Email"
+                        fullWidth={true}
+                        name="email"
+                        onChange={this.handleChange}
+                    />
+                    <TextField
+                        className="input"
+                        required={true}
+                        placeholder="Password"
+                        fullWidth={true}
+                        name="password"
+                        type="password"
+                        onChange={this.handleChange}
+                    />
+                    <div className="button-group">
+                        <Button type="submit" variant="contained" color="primary">
+                            Signup
+                        </Button>
+                    </div>
                     {error && <p className="error">{error}</p>}
                     {success && <p className="success">{success}</p>}
                 </form>
-            </React.Fragment>
+            </Grid>
         )
     }
 }
