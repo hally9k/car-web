@@ -1,12 +1,15 @@
+.container {
+    height: calc(100% - var(--app-bar-height));
+}
+
 .form {
     display: flex;
     flex-direction: column;
 
-    label {
-        display: flex;
-        flex-direction: column;
+    width: 20rem;
 
-        font-size: .7rem;
+    .input {
+        margin-bottom: 2rem;
     }
 
     button {
@@ -19,5 +22,15 @@
 
     .success {
         color: darkgreen
+    }
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    button {
+        margin: 0 .3rem;
     }
 }
