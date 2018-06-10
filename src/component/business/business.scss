@@ -1,0 +1,10 @@
+.meta-controls {
+    .status {
+        line-height: 3rem;
+        color: rgba(0, 0, 0, 0.54);
+
+        &.is-live {
+            color: var(--color-secondary)
+        }
+    }
+}

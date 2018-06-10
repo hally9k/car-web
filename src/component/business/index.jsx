@@ -4,13 +4,16 @@ import businessMutation from 'graphql/mutation/create-business-mutation'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import Switch from '@material-ui/core/Switch'
+import LiveSwitch from './live-switch'
 import Typography from '@material-ui/core/Typography'
 import Page from 'component/core/page'
 
+import './business.scss'
+
 type State = {
     error: string | null,
-    form: BusinessForm
+    form: BusinessForm,
+    isLive: boolean
 }
 
 export type BusinessForm = {
@@ -30,7 +33,12 @@ export default class SignUp extends React.Component<*, State> {
             domain: null,
             color: null,
             logo: null
-        }
+        },
+        isLive: false
+    }
+
+    handleActiveToggle = () => {
+        this.setState((prevState: State): * => ({ isLive: !prevState.isLive }))
     }
 
     handleSubmit = (event: SyntheticEvent<*>) => {
@@ -50,17 +58,18 @@ export default class SignUp extends React.Component<*, State> {
     }
 
     render(): React.Node {
-        const { error }: State = this.state
+        const { error, isLive }: State = this.state
 
         return (
             <Page>
-                <Typography className="title">Business</Typography>
+                <Typography variant="display3">Business</Typography>
+                <div className="meta-controls">
+                    {isLive ? <span className="status is-live">Live</span> : <span className="status">Inactive</span>}
+                    <LiveSwitch onChange={this.handleActiveToggle} />
+                </div>
 
                 <Grid container={true} justify="center" alignItems="center" className="container">
                     <form className="form" onSubmit={this.handleSubmit}>
-                        <div className="meta-controls">
-                            <Switch />
-                        </div>
                         <TextField
                             className="input"
                             required={true}

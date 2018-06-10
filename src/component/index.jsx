@@ -9,7 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import environment from 'environment'
 import routes from 'routes'
 
-import './index.scss'
+import '../scss/index.scss'
 
 const Router: * = createFarceRouter({
     historyProtocol: new BrowserProtocol(),

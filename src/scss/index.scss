@@ -1,3 +1,5 @@
+@import "./colors.scss";
+
 :root {
 	--app-bar-height: 4rem;
 }
@@ -53,8 +55,23 @@ html, body, #root {
 
 .page {
     height: calc(100% - var(--app-bar-height));
-    padding: 2rem 4rem;
+    padding: 6rem 5rem 4rem;
 }
+
+@media(max-width: 480px) {
+    .page {
+        height: calc(100% - var(--app-bar-height));
+        padding: 3rem 1rem 1rem;
+    }
+}
+
+.meta-controls {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 8rem;
+}
+
 
 .form {
     display: flex;
