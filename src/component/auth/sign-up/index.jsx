@@ -5,11 +5,16 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Page from 'component/core/page'
+import { withRouter } from 'found'
 
 type State = {
     error: string | null,
     form: SignUpForm,
     success: string | null
+}
+
+type Props = {
+    router: *
 }
 
 export type SignUpForm = {
@@ -19,7 +24,7 @@ export type SignUpForm = {
     password: string | null
 }
 
-export default class SignUp extends React.Component<*, State> {
+class SignUp extends React.Component<Props, State> {
     state: State = {
         error: null,
         form: {
@@ -45,7 +50,7 @@ export default class SignUp extends React.Component<*, State> {
         if (error) {
             this.setState({ error: 'An error has occurred.', success: null })
         } else {
-            this.setState({ error: null, success: `Thanks for signing up ${(data && data.firstName) || ''}.` })
+            this.props.router.replace('/business')
         }
     }
 
@@ -102,3 +107,5 @@ export default class SignUp extends React.Component<*, State> {
         )
     }
 }
+
+export default withRouter(SignUp)
