@@ -4,7 +4,7 @@ import loginMutation from 'graphql/mutation/login-mutation'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-
+import { withRouter } from 'found'
 import '../auth.scss'
 
 type State = {
@@ -17,7 +17,11 @@ type LoginForm = {
     password: string | null
 }
 
-export default class Login extends React.Component<State, *> {
+type Props = {
+    router: *
+}
+
+class Login extends React.Component<Props, State> {
     state: State = {
         error: null,
         form: {
@@ -32,6 +36,12 @@ export default class Login extends React.Component<State, *> {
         loginMutation(this.state.form, this.handleResponse)
     }
 
+    handleSignup = () => {
+        const { router }: * = this.props
+
+        router.replace('/signup')
+    }
+
     handleChange = ({ target: { value, name } }: *) => {
         this.setState((prevState: State): * => ({ form: { ...prevState.form, [name]: value } }))
     }
@@ -39,8 +49,6 @@ export default class Login extends React.Component<State, *> {
     handleResponse = (data: *, error: *) => {
         if (error) {
             this.setState({ error: 'An error has occurred.' })
-        } else {
-            this.setState({ success: `Thanks for signing up ${(data && data.firstName) || ''}.` })
         }
     }
 
@@ -68,7 +76,7 @@ export default class Login extends React.Component<State, *> {
                         onChange={this.handleChange}
                     />
                     <div className="button-group">
-                        <Button>Signup</Button>
+                        <Button onClick={this.handleSignup}>Signup</Button>
                         <Button type="submit" variant="contained" color="primary">
                             Login
                         </Button>
@@ -79,3 +87,5 @@ export default class Login extends React.Component<State, *> {
         )
     }
 }
+
+export default withRouter(Login)
