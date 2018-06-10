@@ -4,7 +4,7 @@ import businessMutation from 'graphql/mutation/create-business-mutation'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import LiveSwitch from './live-switch'
+import Switch from '@material-ui/core/Switch'
 import Typography from '@material-ui/core/Typography'
 import Page from 'component/core/page'
 
@@ -65,7 +65,7 @@ export default class SignUp extends React.Component<*, State> {
                 <Typography variant="display3">Business</Typography>
                 <div className="meta-controls">
                     {isLive ? <span className="status is-live">Live</span> : <span className="status">Inactive</span>}
-                    <LiveSwitch onChange={this.handleActiveToggle} />
+                    <Switch onChange={this.handleActiveToggle} />
                 </div>
 
                 <Grid container={true} justify="center" alignItems="center" className="container">
