@@ -2,9 +2,15 @@
 import * as React from 'react'
 
 type Props = {
-    children: React.Node
+    children: React.Node,
+    onClick: *
 }
 
 export default function Page(props: Props): React.Node {
-    return <div className="page">{props.children}</div>
+    return (
+        // eslint-disable-next-line
+        <div className="page" onClick={props.onClick}>
+            {props.children}
+        </div>
+    )
 }
