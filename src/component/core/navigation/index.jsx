@@ -20,6 +20,9 @@ export default function Navigation(props: Props): React.Node {
                         <Link className="item" to="/">
                             Home
                         </Link>
+                        <Link className="item" to="/business">
+                            Business
+                        </Link>
                         <Link className="item" to="/signup">
                             Signup
                         </Link>

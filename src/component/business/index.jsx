@@ -1,52 +1,49 @@
 // @flow
 import * as React from 'react'
-import loginMutation from 'graphql/mutation/login-mutation'
+import businessMutation from 'graphql/mutation/create-business-mutation'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import { withRouter } from 'found'
+import Switch from '@material-ui/core/Switch'
+import Typography from '@material-ui/core/Typography'
 import Page from 'component/core/page'
 
 type State = {
     error: string | null,
-    form: LoginForm
+    form: BusinessForm
 }
 
-type LoginForm = {
-    email: string | null,
-    password: string | null
+export type BusinessForm = {
+    color: string | null,
+    domain: string | null,
+    logo: *,
+    name: string | null,
+    subdomain: string | null
 }
 
-type Props = {
-    router: *
-}
-
-class Login extends React.Component<Props, State> {
+export default class SignUp extends React.Component<*, State> {
     state: State = {
         error: null,
         form: {
-            email: null,
-            password: null
+            name: null,
+            subdomain: null,
+            domain: null,
+            color: null,
+            logo: null
         }
     }
 
     handleSubmit = (event: SyntheticEvent<*>) => {
         event.preventDefault()
 
-        loginMutation(this.state.form, this.handleResponse)
-    }
-
-    handleSignup = () => {
-        const { router }: * = this.props
-
-        router.replace('/signup')
+        businessMutation(this.state.form, this.handleResponse)
     }
 
     handleChange = ({ target: { value, name } }: *) => {
         this.setState((prevState: State): * => ({ form: { ...prevState.form, [name]: value } }))
     }
 
-    handleResponse = (data: *, error: *) => {
+    handleResponse = (data: BusinessForm | null, error: *) => {
         if (error) {
             this.setState({ error: 'An error has occurred.' })
         }
@@ -57,29 +54,47 @@ class Login extends React.Component<Props, State> {
 
         return (
             <Page>
+                <Typography className="title">Business</Typography>
+
                 <Grid container={true} justify="center" alignItems="center" className="container">
                     <form className="form" onSubmit={this.handleSubmit}>
+                        <div className="meta-controls">
+                            <Switch />
+                        </div>
                         <TextField
-                            required={true}
                             className="input"
-                            placeholder="Email"
+                            required={true}
+                            placeholder="Company Name"
                             fullWidth={true}
-                            name="email"
+                            name="name"
                             onChange={this.handleChange}
                         />
                         <TextField
-                            required={true}
                             className="input"
-                            placeholder="Password"
+                            placeholder="Logo"
                             fullWidth={true}
-                            name="password"
-                            type="password"
+                            name="logo"
+                            onChange={this.handleChange}
+                        />
+                        <TextField
+                            className="input"
+                            required={true}
+                            placeholder="Website Address Prefix"
+                            fullWidth={true}
+                            name="subdomain"
+                            onChange={this.handleChange}
+                        />
+                        <TextField
+                            className="input"
+                            required={true}
+                            placeholder="Color"
+                            fullWidth={true}
+                            name="color"
                             onChange={this.handleChange}
                         />
                         <div className="button-group">
-                            <Button onClick={this.handleSignup}>Signup</Button>
                             <Button type="submit" variant="contained" color="primary">
-                                Login
+                                Update
                             </Button>
                         </div>
                         {error && <p className="error">{error}</p>}
@@ -89,5 +104,3 @@ class Login extends React.Component<Props, State> {
         )
     }
 }
-
-export default withRouter(Login)

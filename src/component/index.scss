@@ -46,3 +46,45 @@ html, body, #root {
 		z-index: -1;
 	}
 }
+
+.container {
+    height: calc(100% - var(--app-bar-height));
+}
+
+.page {
+    height: calc(100% - var(--app-bar-height));
+    padding: 2rem 4rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+
+    width: 20rem;
+
+    .input {
+        margin-bottom: 2rem;
+    }
+
+    button {
+        margin-top: 1rem;
+    }
+
+    .error {
+        color: red
+    }
+
+    .success {
+        color: darkgreen
+    }
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    button {
+        margin: 0 .3rem;
+    }
+}
