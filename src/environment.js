@@ -1,23 +1,46 @@
 // @flow
-import { Environment, Network, RecordSource, Store } from 'relay-runtime'
+import { Environment, RecordSource, Store } from 'relay-runtime'
+import type { Middleware } from 'react-relay-network-modern/lib/definition'
+import uuid from 'uuid/v4'
+import { RelayNetworkLayer, RelayNetworkLayerRequestBatch } from 'react-relay-network-modern'
 
 const store: * = new Store(new RecordSource())
 
-const network: * = Network.create((operation: *, variables: *): * =>
-    // TODO: fallback required here
-    // eslint-disable-next-line
-    fetch('http://localhost:9090/api', {
-        body: JSON.stringify({
-            query: operation.text,
-            variables
-        }),
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        method: 'POST'
-    }).then((response: *): * => response.json())
-)
+const recReplace: * = (variables: Object): * => Object.entries(variables).reduce((acc: *, [key, value]: *): * => {
+    if (value instanceof File) {
+        const id: string = uuid.v4()
+
+        return {
+            variables: { ...acc.variables, [key]: id },
+            files: { ...acc.files, [id]: value },
+        }
+    }
+
+    if (value instanceof Object) {
+        const { variables: v, files: u }: * = recReplace(value)
+
+        return { variables: { ...variables, [key]: v }, files: { ...acc.files, ...u } }
+    }
+
+    return { variables: { ...variables, [key]: value }, files: acc.files }
+}, { variables: {}, files: {} })
+
+export const fileMiddleware: Middleware = (next: *): * => async(req: *): * => {
+    if (req instanceof RelayNetworkLayerRequestBatch) {
+        return next(req)
+    }
+
+    const updated: * = recReplace(req.variables)
+
+    req.variables = updated.variables
+    req.uploadables = updated.files
+
+    return next(req)
+}
+
+const network: * = new RelayNetworkLayer([
+    fileMiddleware,
+])
 
 const handlerProvider: * = null
 
