@@ -1,4 +1,5 @@
 // @flow
+import 'regenerator-runtime/runtime'
 import { Environment, RecordSource, Store } from 'relay-runtime'
 import type { Middleware } from 'react-relay-network-modern/lib/definition'
 import uuid from 'uuid/v4'
@@ -6,8 +7,13 @@ import { RelayNetworkLayer, RelayNetworkLayerRequestBatch } from 'react-relay-ne
 
 const store: * = new Store(new RecordSource())
 
-const recReplace: * = (variables: Object): * => Object.entries(variables).reduce((acc: *, [key, value]: *): * => {
-    if (value instanceof File) {
+type ReplacedFields = {
+    files: { [id: string]: File | Blob },
+    variables: { [id: string]: mixed },
+}
+
+const recReplace = (variables: Object): ReplacedFields => Object.entries(variables).reduce((acc: ReplacedFields, [key, value]: *): * => {
+    if (value instanceof File || value instanceof Blob) {
         const id: string = uuid.v4()
 
         return {
@@ -30,7 +36,7 @@ export const fileMiddleware: Middleware = (next: *): * => async(req: *): * => {
         return next(req)
     }
 
-    const updated: * = recReplace(req.variables)
+    const updated = recReplace(req.variables)
 
     req.variables = updated.variables
     req.uploadables = updated.files

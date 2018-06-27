@@ -30,7 +30,12 @@ let config = {
                 test: /\.(scss)$/,
                 include: path.resolve(__dirname, 'src'),
                 loaders: ['style-loader', 'css-loader', 'sass-loader']
-            }
+            },
+            {
+                test: /\.mjs$/,
+                include: /node_modules/,
+                type: 'javascript/auto',
+            },
         ]
     },
     plugins: [
@@ -40,7 +45,7 @@ let config = {
         })
     ],
     resolve: {
-        extensions: ['.js', '.jsx', '.graphql'],
+        extensions: ['.js', '.jsx', '.mjs', '.graphql'],
         modules: ['node_modules', 'src']
     },
     optimization: {
