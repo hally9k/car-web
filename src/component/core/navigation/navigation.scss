@@ -1,0 +1,27 @@
+.logo {
+    padding: 1rem;
+    height: var(--app-bar-height);
+    width: 5rem;
+}
+
+.app-bar {
+    height: var(--app-bar-height);
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .items {
+            padding: 1rem;
+            height: var(--app-bar-height);
+
+            .item {
+                line-height: 2rem;
+                margin: 0 .5rem;
+
+                color: white;
+            }
+        }
+    }
+}

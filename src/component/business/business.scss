@@ -1,0 +1,46 @@
+.meta-controls {
+    position: absolute;
+
+    margin-top: 4rem;
+
+    .status {
+        line-height: 3rem;
+        color: rgba(0, 0, 0, 0.54);
+
+        &.is-live {
+            color: var(--color-secondary)
+        }
+    }
+}
+
+
+.header-container {
+    position: relative;
+
+    .heading {
+        position: absolute;
+    }
+}
+
+
+.color-input {
+    display: flex;
+    position: relative;
+
+    .color-circle {
+        height: 2rem;
+        width: 2rem;
+        border-radius: 1rem;
+        background-color: var(--business-color)
+    }
+
+    .color-picker {
+        position: absolute;
+        z-index: 1800;
+        top: 3rem;
+
+        .twitter-picker {
+            position: absolute;
+        }
+    }
+}
