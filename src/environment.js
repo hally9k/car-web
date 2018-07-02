@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime'
 import { Environment, RecordSource, Store } from 'relay-runtime'
 import type { Middleware } from 'react-relay-network-modern/lib/definition'
 import uuid from 'uuid/v4'
-import { RelayNetworkLayer, RelayNetworkLayerRequestBatch } from 'react-relay-network-modern'
+import { RelayNetworkLayer, RelayNetworkLayerRequestBatch, urlMiddleware } from 'react-relay-network-modern'
 
 const store: * = new Store(new RecordSource())
 
@@ -46,6 +46,7 @@ export const fileMiddleware: Middleware = (next: *): * => async(req: *): * => {
 
 const network: * = new RelayNetworkLayer([
     fileMiddleware,
+    urlMiddleware({ url: () => '/api', })
 ])
 
 const handlerProvider: * = null
