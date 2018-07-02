@@ -1,13 +1,7 @@
 {
     "env": {
         "test": {
-            "presets": [["env"], "react"],
-            "plugins": [
-              "transform-es2015-modules-commonjs",
-              "transform-class-properties",
-              "transform-object-rest-spread",
-              "react-hot-loader/babel"
-            ],
+            "plugins": ["transform-es2015-modules-commonjs"],
             "sourceMap": "inline"
         }
     },
@@ -17,5 +11,5 @@
         "transform-object-rest-spread",
         "react-hot-loader/babel"
     ],
-    "presets": [["env"], "react"]
+    "presets": ["react"]
 }

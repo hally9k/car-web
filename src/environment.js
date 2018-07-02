@@ -1,9 +1,6 @@
 // @flow
-import 'regenerator-runtime/runtime'
-import { Environment, RecordSource, Store } from 'relay-runtime'
-import type { Middleware } from 'react-relay-network-modern/lib/definition'
+import { Environment, Network, RecordSource, Store } from 'relay-runtime'
 import uuid from 'uuid/v4'
-import { RelayNetworkLayer, RelayNetworkLayerRequestBatch, urlMiddleware } from 'react-relay-network-modern'
 
 const store: * = new Store(new RecordSource())
 
@@ -31,23 +28,38 @@ const recReplace = (variables: Object): ReplacedFields => Object.entries(variabl
     return { variables: { ...variables, [key]: value }, files: acc.files }
 }, { variables: {}, files: {} })
 
-export const fileMiddleware: Middleware = (next: *): * => async(req: *): * => {
-    if (req instanceof RelayNetworkLayerRequestBatch) {
-        return next(req)
-    }
+const network: * = Network.create((operation: *, vars: *): * => {
+    const { variables, files } = recReplace(vars)
 
-    const updated = recReplace(req.variables)
 
-    req.variables = updated.variables
-    req.uploadables = updated.files
+    const { body, contentType } = Object.keys(files).length > 0 ?
+        {
+            body: new FormData({
+                ...files,
+                query: operation.text,
+                variables: JSON.stringify(variables),
+            }),
+            contentType: 'application/json'
+        } :
+        {
+            body: JSON.stringify({
+                query: operation.text,
+                variables
+            }),
+            contentType: 'multipart/form-data'
+        }
 
-    return next(req)
-}
-
-const network: * = new RelayNetworkLayer([
-    fileMiddleware,
-    urlMiddleware({ url: () => '/api', })
-])
+    // TODO: fallback required here
+    // eslint-disable-next-line
+    fetch('http://localhost:9090/api', {
+        body,
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': contentType
+        },
+        method: 'POST'
+    }).then((response: *): * => response.json())
+})
 
 const handlerProvider: * = null
 
