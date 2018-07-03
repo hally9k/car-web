@@ -1,3 +1,6 @@
+# source: http://localhost:9000/graphql
+# timestamp: Mon Jun 11 2018 20:54:19 GMT+1200 (NZST)
+
 type ApplicationDataType {
   fuelTypes: [FuelType!]!
   transmissionTypes: [TransmissionType!]!
@@ -24,13 +27,13 @@ enum BodyType {
   Convertible
 }
 
-# This is the main entry point for the public facing graph
+"""This is the main entry point for the public facing graph"""
 type Business implements Node {
   name: String!
   subdomain: String
   domain: String
 
-  # The ID of an object
+  """The ID of an object"""
   id: ID!
   listings(before: String, after: String, first: Int, last: Int): ListingConnection!
 }
@@ -86,11 +89,38 @@ type CreateListingMutationPayload {
 
 scalar DateTime
 
+interface FilePropertiesInterface {
+  fileName: String!
+  size: Long
+  type: String!
+}
+
+"""
+The key name of the attached file, The content-type needs to be multipart/form-data to use this type
+"""
+scalar FileRef
+
 enum FuelType {
   Electric
   Hybrid
   Diesel
   Petrol
+}
+
+type ImageFileRef {
+  fileId: String!
+  file: ImageFileType
+}
+
+type ImageFileType {
+  id: String!
+  properties: FilePropertiesInterface
+}
+
+type ImageProperties implements FilePropertiesInterface {
+  fileName: String!
+  size: Long
+  type: String!
 }
 
 type Listing implements Node {
@@ -110,59 +140,83 @@ type Listing implements Node {
   engineSize: Int
   conditionType: ConditionType
   features: [String!]!
+  images: [ImageFileRef!]!
   createdBy: String!
   createdAt: DateTime
 
-  # The ID of an object
+  """The ID of an object"""
   id: ID!
 }
 
-# A connection to a list of items.
+"""A connection to a list of items."""
 type ListingConnection {
-  # Information to aid in pagination.
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-  # A list of edges.
+  """A list of edges."""
   edges: [ListingEdge]
 }
 
-# An edge in a connection.
+"""An edge in a connection."""
 type ListingEdge {
-  # The item at the end of the edge.
+  """The item at the end of the edge."""
   node: Listing!
 
-  # A cursor for use in pagination.
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
-# The `Long` scalar type represents non-fractional signed whole numeric values.
-# Long can represent values between -(2^63) and 2^63 - 1.
+input ListingImageUpload {
+  id: String
+  listingId: String!
+  image: FileRef!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input loginMutationInput {
+  payload: LoginInput!
+  clientMutationId: String
+}
+
+type loginMutationPayload {
+  payload: String!
+  clientMutationId: String
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
 scalar Long
 
 type Make implements Node {
   name: String!
   slug: String!
 
-  # The ID of an object
+  """The ID of an object"""
   id: ID!
   models(before: String, after: String, first: Int, last: Int): ModelConnection!
 }
 
-# A connection to a list of items.
+"""A connection to a list of items."""
 type MakeConnection {
-  # Information to aid in pagination.
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-  # A list of edges.
+  """A list of edges."""
   edges: [MakeEdge]
 }
 
-# An edge in a connection.
+"""An edge in a connection."""
 type MakeEdge {
-  # The item at the end of the edge.
+  """The item at the end of the edge."""
   node: Make!
 
-  # A cursor for use in pagination.
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -172,53 +226,54 @@ type Model implements Node {
   makeId: String!
   make: Make
 
-  # The ID of an object
+  """The ID of an object"""
   id: ID!
 }
 
-# A connection to a list of items.
+"""A connection to a list of items."""
 type ModelConnection {
-  # Information to aid in pagination.
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
 
-  # A list of edges.
+  """A list of edges."""
   edges: [ModelEdge]
 }
 
-# An edge in a connection.
+"""An edge in a connection."""
 type ModelEdge {
-  # The item at the end of the edge.
+  """The item at the end of the edge."""
   node: Model!
 
-  # A cursor for use in pagination.
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
 type Mutation {
-  signUp(authProvider: SignupData!): User!
-  login(email: String!, password: String!): String!
+  signUp(input: signUpMutationInput!): signUpMutationPayload
+  login(input: loginMutationInput!): loginMutationPayload
   createListing(input: CreateListingMutationInput!): CreateListingMutationPayload
+  uploadVehicleImage(input: uploadVehicleImageMutationInput!): uploadVehicleImageMutationPayload
   createBusiness(input: CreateBusinessMutationInput!): CreateBusinessMutationPayload
 }
 
-# An object with an ID
+"""An object with an ID"""
 interface Node {
-  # The id of the object.
+  """The id of the object."""
   id: ID!
 }
 
-# Information about pagination in a connection.
+"""Information about pagination in a connection."""
 type PageInfo {
-  # When paginating forwards, are there more items?
+  """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
 
-  # When paginating backwards, are there more items?
+  """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
-  # When paginating backwards, the cursor to continue.
+  """When paginating backwards, the cursor to continue."""
   startCursor: String
 
-  # When paginating forwards, the cursor to continue.
+  """When paginating forwards, the cursor to continue."""
   endCursor: String
 }
 
@@ -227,14 +282,30 @@ type Query {
   business(businessId: String): Business!
 }
 
-input SignupData {
-  credentials: AuthProviderCredentials
+input signUpMutationInput {
+  payload: AuthProviderCredentials
+  clientMutationId: String
+}
+
+type signUpMutationPayload {
+  payload: User!
+  clientMutationId: String
 }
 
 enum TransmissionType {
   Auto
   Tiptronic
   Manual
+}
+
+input uploadVehicleImageMutationInput {
+  payload: ListingImageUpload!
+  clientMutationId: String
+}
+
+type uploadVehicleImageMutationPayload {
+  payload: ImageFileRef!
+  clientMutationId: String
 }
 
 type User {
@@ -244,4 +315,3 @@ type User {
   businessId: String
   createdAt: DateTime
 }
-

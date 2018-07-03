@@ -18,7 +18,8 @@
     "relay": "relay-compiler --src ./src --schema ./schema.graphql --extensions=js --no-watchman",
     "lint": "eslint \"{src,test}/**/*.jsx?}\" --quiet --config ./.eslintrc.json",
     "precommit": "lint-staged",
-    "prepush": "yarn test"
+    "prepush": "yarn test",
+    "updateSchema": "graphql get-schema"
   },
   "dependencies": {
     "@material-ui/core": "^1.2.0",
@@ -64,6 +65,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
     "get-graphql-schema": "^2.1.1",
+    "graphql-cli": "^2.16.2",
     "html-webpack-plugin": "^3.0.4",
     "http-proxy-middleware": "^0.18.0",
     "husky": "^0.14.3",
