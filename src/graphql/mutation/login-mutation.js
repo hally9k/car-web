@@ -3,8 +3,10 @@ import environment from 'environment'
 import { commitMutation, graphql } from 'react-relay'
 
 const mutation: * = graphql`
-    mutation loginMutation($email: String!, $password: String!) {
-        login(email: $email, password: $password)
+    mutation loginMutation($input:  loginMutationInput!) {
+        login(input: $input) {
+            payload
+        }
     }
 `
 
@@ -17,10 +19,6 @@ export default (credentials: *, callback: *) => {
         updater: (store: *, { login }: *) => {
             callback(login, null)
         },
-        variables: {
-            authProvider: {
-                credentials
-            }
-        }
+        variables: { input: { payload: credentials } }
     })
 }
