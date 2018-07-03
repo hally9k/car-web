@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 1cf8f02080839c986fad09b5dc3f4192
+ * @relayHash f450a35dfbda3a197767037a5fbf7fde
  */
 
 /* eslint-disable */
@@ -9,22 +9,32 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type loginMutationVariables = {|
+export type loginMutationInput = {
+  payload: LoginInput,
+  clientMutationId?: ?string,
+};
+export type LoginInput = {
   email: string,
   password: string,
+};
+export type loginMutationVariables = {|
+  input: loginMutationInput
 |};
 export type loginMutationResponse = {|
-  +login: string
+  +login: ?{|
+    +payload: string
+  |}
 |};
 */
 
 
 /*
 mutation loginMutation(
-  $email: String!
-  $password: String!
+  $input: loginMutationInput!
 ) {
-  login(email: $email, password: $password)
+  login(input: $input) {
+    payload
+  }
 }
 */
 
@@ -32,37 +42,36 @@ const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
     "kind": "LocalArgument",
-    "name": "email",
-    "type": "String!",
-    "defaultValue": null
-  },
-  {
-    "kind": "LocalArgument",
-    "name": "password",
-    "type": "String!",
+    "name": "input",
+    "type": "loginMutationInput!",
     "defaultValue": null
   }
 ],
 v1 = [
   {
-    "kind": "ScalarField",
+    "kind": "LinkedField",
     "alias": null,
     "name": "login",
+    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
-        "name": "email",
-        "variableName": "email",
-        "type": "String!"
-      },
-      {
-        "kind": "Variable",
-        "name": "password",
-        "variableName": "password",
-        "type": "String!"
+        "name": "input",
+        "variableName": "input",
+        "type": "loginMutationInput!"
       }
     ],
-    "storageKey": null
+    "concreteType": "loginMutationPayload",
+    "plural": false,
+    "selections": [
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "payload",
+        "args": null,
+        "storageKey": null
+      }
+    ]
   }
 ];
 return {
@@ -70,7 +79,7 @@ return {
   "operationKind": "mutation",
   "name": "loginMutation",
   "id": null,
-  "text": "mutation loginMutation(\n  $email: String!\n  $password: String!\n) {\n  login(email: $email, password: $password)\n}\n",
+  "text": "mutation loginMutation(\n  $input: loginMutationInput!\n) {\n  login(input: $input) {\n    payload\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -89,5 +98,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a15233ba417cbac79232c7776ff10169';
+(node/*: any*/).hash = '86a110c24833c064c064a57d2e7cf65c';
 module.exports = node;
