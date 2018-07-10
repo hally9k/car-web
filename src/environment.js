@@ -39,19 +39,19 @@ const network: * = Network.create((operation: *, vars: *): * => {
                 query: operation.text,
                 variables: JSON.stringify(variables),
             }),
-            contentType: 'application/json'
+            contentType: 'multipart/form-data'
         } :
         {
             body: JSON.stringify({
                 query: operation.text,
                 variables
             }),
-            contentType: 'multipart/form-data'
+            contentType: 'application/json'
         }
 
     // TODO: fallback required here
     // eslint-disable-next-line
-    fetch('http://localhost:9090/api', {
+    return fetch('http://localhost:9090/api', {
         body,
         headers: {
             Accept: 'application/json',
