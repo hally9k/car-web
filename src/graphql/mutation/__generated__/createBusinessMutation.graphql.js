@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash f35166e7ef8854d41fb7fea9afda3714
+ * @relayHash 5597e99ae4c5d62a2d4cdb22bf6827a5
  */
 
 /* eslint-disable */
@@ -17,6 +17,7 @@ export type CreateBusinessArgType = {
   name: string,
   domain?: ?string,
   subdomain?: ?string,
+  logo?: ?any,
 };
 export type createBusinessMutationVariables = {|
   input: CreateBusinessMutationInput

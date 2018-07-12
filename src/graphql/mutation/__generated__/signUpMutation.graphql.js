@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash f1c3b0dc6895eb81abb2f511481e1f76
+ * @relayHash dc36a7077efb36d8897f27de34a10039
  */
 
 /* eslint-disable */
@@ -25,11 +25,14 @@ export type signUpMutationVariables = {|
 export type signUpMutationResponse = {|
   +signUp: ?{|
     +payload: {|
-      +firstName: string,
-      +lastName: string,
-      +email: string,
-      +businessId: ?string,
-      +createdAt: ?any,
+      +user: {|
+        +firstName: string,
+        +lastName: string,
+        +email: string,
+        +businessId: ?string,
+        +createdAt: ?any,
+      |},
+      +token: string,
     |}
   |}
 |};
@@ -42,11 +45,14 @@ mutation signUpMutation(
 ) {
   signUp(input: $input) {
     payload {
-      firstName
-      lastName
-      email
-      businessId
-      createdAt
+      user {
+        firstName
+        lastName
+        email
+        businessId
+        createdAt
+      }
+      token
     }
   }
 }
@@ -84,41 +90,59 @@ v1 = [
         "name": "payload",
         "storageKey": null,
         "args": null,
-        "concreteType": "User",
+        "concreteType": "SignUpRes",
         "plural": false,
         "selections": [
           {
-            "kind": "ScalarField",
+            "kind": "LinkedField",
             "alias": null,
-            "name": "firstName",
+            "name": "user",
+            "storageKey": null,
             "args": null,
-            "storageKey": null
+            "concreteType": "User",
+            "plural": false,
+            "selections": [
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "firstName",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "lastName",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "email",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "businessId",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "createdAt",
+                "args": null,
+                "storageKey": null
+              }
+            ]
           },
           {
             "kind": "ScalarField",
             "alias": null,
-            "name": "lastName",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "email",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "businessId",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "createdAt",
+            "name": "token",
             "args": null,
             "storageKey": null
           }
@@ -132,7 +156,7 @@ return {
   "operationKind": "mutation",
   "name": "signUpMutation",
   "id": null,
-  "text": "mutation signUpMutation(\n  $input: signUpMutationInput!\n) {\n  signUp(input: $input) {\n    payload {\n      firstName\n      lastName\n      email\n      businessId\n      createdAt\n    }\n  }\n}\n",
+  "text": "mutation signUpMutation(\n  $input: signUpMutationInput!\n) {\n  signUp(input: $input) {\n    payload {\n      user {\n        firstName\n        lastName\n        email\n        businessId\n        createdAt\n      }\n      token\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -151,5 +175,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6d4d7cbdfb31c11bea45882dd43ceeb6';
+(node/*: any*/).hash = '507b2129b2d594f87b7ac26d0124451c';
 module.exports = node;

@@ -1,5 +1,5 @@
 # source: http://localhost:9000/graphql
-# timestamp: Mon Jun 11 2018 20:54:19 GMT+1200 (NZST)
+# timestamp: Thu Jul 12 2018 21:29:18 GMT+1200 (New Zealand Standard Time)
 
 type ApplicationDataType {
   fuelTypes: [FuelType!]!
@@ -48,6 +48,7 @@ input CreateBusinessArgType {
   name: String!
   domain: String
   subdomain: String
+  logo: FileRef
 }
 
 input CreateBusinessMutationInput {
@@ -288,8 +289,13 @@ input signUpMutationInput {
 }
 
 type signUpMutationPayload {
-  payload: User!
+  payload: SignUpRes!
   clientMutationId: String
+}
+
+type SignUpRes {
+  token: String!
+  user: User!
 }
 
 enum TransmissionType {
